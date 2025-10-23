@@ -15,8 +15,14 @@ The development container includes:
 - **VS Code Extensions**:
   - Python support (linting, formatting)
   - AWS Toolkit
+  - Amazon Q (AI coding assistant)
   - Docker support
   - ESLint and Prettier
+  - GitHub Copilot & Copilot Chat (if you have access)
+- **Development CLIs**:
+  - AWS CDK (automatically installed)
+  - Amazon Q CLI (automatically installed)
+  - Claude Code CLI (automatically installed if available)
 
 ## Prerequisites
 
@@ -34,6 +40,8 @@ The development container includes:
 4. Wait for the container to build and start (first time takes longer)
 5. The post-create script will automatically:
    - Install AWS CDK
+   - Install Amazon Q CLI
+   - Install Claude Code CLI (if available)
    - Install Python dependencies
    - Install Node.js dependencies for modules
 

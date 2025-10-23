@@ -22,10 +22,6 @@ done
 
 echo "✅ Node.js and npm are available"
 
-# Install AWS CDK globally
-echo "📦 Installing AWS CDK..."
-npm install -g aws-cdk@latest
-
 # Verify installations
 echo ""
 echo "✅ Verifying installations..."
@@ -35,6 +31,12 @@ echo "NPM version: $(npm --version)"
 echo "AWS CLI version: $(aws --version)"
 echo "CDK version: $(cdk --version)"
 echo "Docker version: $(docker --version)"
+echo "Bun version: $(bun --version)"
+echo ""
+echo "Development CLIs:"
+command -v claude-code &> /dev/null && echo "✅ Claude Code CLI installed" || echo "⚠️  Claude Code CLI not found"
+command -v codex &> /dev/null && echo "✅ Codex CLI installed" || echo "⚠️  Codex CLI not found"
+command -v q &> /dev/null && echo "✅ Amazon Q CLI installed" || echo "⚠️  Amazon Q CLI not found"
 
 # Install Python dependencies for CookieFactory workspace
 echo "📦 Installing Python dependencies..."
