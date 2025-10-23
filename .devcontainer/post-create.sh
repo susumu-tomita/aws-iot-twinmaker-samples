@@ -4,6 +4,15 @@ set -e
 
 echo "🚀 Running post-create setup..."
 
+# Fix Docker socket permissions
+echo "🔧 Configuring Docker socket permissions..."
+if [ -e /var/run/docker.sock ]; then
+    sudo chmod 666 /var/run/docker.sock
+    echo "✅ Docker socket permissions updated"
+else
+    echo "⚠️  Docker socket not found - Docker-in-Docker may not be available"
+fi
+
 # Wait for node/npm to be available (installed by features)
 echo "⏳ Waiting for Node.js and npm to be available..."
 max_attempts=30
