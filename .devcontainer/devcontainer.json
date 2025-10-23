@@ -7,10 +7,17 @@
     }
   },
 
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest",
+      "moby": true,
+      "dockerDashComposeVersion": "v2"
+    }
+  },
+
   "runArgs": [
     "--cap-add=NET_ADMIN",
-    "--cap-add=NET_RAW",
-    "--privileged"
+    "--cap-add=NET_RAW"
   ],
 
   "customizations": {
@@ -63,8 +70,7 @@
   "mounts": [
     "source=${env:HOME}/.aws,target=/home/vscode/.aws,type=bind",
     "source=aws-iot-twinmaker-bashhistory-${devcontainerId},target=/commandhistory,type=volume",
-    "source=aws-iot-twinmaker-claude-config-${devcontainerId},target=/home/vscode/.claude,type=volume",
-    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+    "source=aws-iot-twinmaker-claude-config-${devcontainerId},target=/home/vscode/.claude,type=volume"
   ],
 
   "remoteEnv": {
