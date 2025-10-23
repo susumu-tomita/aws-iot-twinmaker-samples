@@ -10,8 +10,7 @@
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {
       "version": "latest",
-      "moby": true,
-      "dockerDashComposeVersion": "v2"
+      "moby": true
     }
   },
 
@@ -83,7 +82,8 @@
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=delegated",
   "workspaceFolder": "/workspace",
 
-  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  // Temporarily disabled to test container startup
+  // "postCreateCommand": "bash .devcontainer/post-create.sh",
 
   "forwardPorts": [3000]
 }
