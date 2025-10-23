@@ -53,8 +53,9 @@ RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-$(uname -m).zip" -o "aws
     ./aws/install && \
     rm -rf awscliv2.zip aws
 
-# Create vscode user
-RUN useradd -m -s /bin/zsh -u 1000 vscode && \
+# Create docker group and vscode user
+RUN groupadd -g 999 docker || true && \
+    useradd -m -s /bin/zsh -u 1000 -G docker vscode && \
     echo "vscode ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/vscode && \
     chmod 0440 /etc/sudoers.d/vscode
 

@@ -62,7 +62,8 @@
   "mounts": [
     "source=${env:HOME}/.aws,target=/home/vscode/.aws,type=bind",
     "source=aws-iot-twinmaker-bashhistory-${devcontainerId},target=/commandhistory,type=volume",
-    "source=aws-iot-twinmaker-claude-config-${devcontainerId},target=/home/vscode/.claude,type=volume"
+    "source=aws-iot-twinmaker-claude-config-${devcontainerId},target=/home/vscode/.claude,type=volume",
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
   ],
 
   "remoteEnv": {
