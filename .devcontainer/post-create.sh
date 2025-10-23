@@ -51,9 +51,10 @@ fi
 echo "📦 Installing Timestream Telemetry CDK dependencies..."
 if [ -d "src/modules/timestream_telemetry/cdk" ]; then
     cd src/modules/timestream_telemetry/cdk
+    echo "🔄 Updating to latest CDK version..."
     npm install
     cd ../../../..
-    echo "✅ Timestream Telemetry dependencies installed"
+    echo "✅ Timestream Telemetry dependencies installed (CDK 2.168.0+)"
 else
     echo "⚠️  Timestream Telemetry CDK directory not found"
 fi
