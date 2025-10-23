@@ -81,7 +81,7 @@ USER vscode
 
 # Install global npm packages
 ENV NPM_CONFIG_PREFIX=/usr/local/share/npm-global
-ENV PATH=$PATH:/usr/local/share/npm-global/bin
+ENV PATH=$PATH:/usr/local/share/npm-global/bin:/home/vscode/.local/bin
 
 # Set the default shell to zsh
 ENV SHELL=/bin/zsh
@@ -102,8 +102,11 @@ RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/
 RUN curl -fsSL https://bun.sh/install | bash -s "bun-v1.1.38"
 ENV BUN_INSTALL="/home/vscode/.bun"
 ENV PATH="${BUN_INSTALL}/bin:${PATH}"
+
+# Add all custom PATHs to .zshrc
 RUN echo 'export BUN_INSTALL="$HOME/.bun"' >> /home/vscode/.zshrc && \
-    echo 'export PATH="$BUN_INSTALL/bin:$PATH"' >> /home/vscode/.zshrc
+    echo 'export PATH="$HOME/.local/bin:$BUN_INSTALL/bin:/usr/local/share/npm-global/bin:$PATH"' >> /home/vscode/.zshrc && \
+    echo 'export NPM_CONFIG_PREFIX=/usr/local/share/npm-global' >> /home/vscode/.zshrc
 
 # Install AWS CDK
 RUN npm install -g aws-cdk@latest
