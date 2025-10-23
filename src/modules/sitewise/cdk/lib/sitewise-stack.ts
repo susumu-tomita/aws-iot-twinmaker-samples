@@ -44,7 +44,7 @@ export class SiteWiseStack extends cdk.Stack {
         console.log("PWD:" + __dirname)
         const iottwinmaker_env = new lambda.LayerVersion(this, 'iottwinmaker_env', {
             code: lambda.Code.fromAsset(path.join(__dirname, '..', '..', '..', '..', '..', 'src', 'libs', 'connector_utils')),
-            compatibleRuntimes: [lambda.Runtime.PYTHON_3_9, lambda.Runtime.PYTHON_3_8, lambda.Runtime.PYTHON_3_7, lambda.Runtime.PYTHON_3_10]
+            compatibleRuntimes: [lambda.Runtime.PYTHON_3_13]
         });
 
         /***************************/
@@ -56,7 +56,7 @@ export class SiteWiseStack extends cdk.Stack {
             handler: this.node.tryGetContext('SiteWiseExporterHandler'),
             memorySize: 256,
             role: iottwinmaker_connector_role,
-            runtime: lambda.Runtime.PYTHON_3_9,
+            runtime: lambda.Runtime.PYTHON_3_13,
             timeout: cdk.Duration.minutes(15),
             layers: [iottwinmaker_env],
             environment: {
@@ -69,7 +69,7 @@ export class SiteWiseStack extends cdk.Stack {
             handler: this.node.tryGetContext('IoTTwinMakerSiteWiseImporterHandler'),
             memorySize: 256,
             role: iottwinmaker_connector_role,
-            runtime: lambda.Runtime.PYTHON_3_9,
+            runtime: lambda.Runtime.PYTHON_3_13,
             timeout: cdk.Duration.minutes(15),
             layers: [iottwinmaker_env],
             environment: {

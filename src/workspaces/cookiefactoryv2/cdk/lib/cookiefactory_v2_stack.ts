@@ -338,14 +338,14 @@ export class TmdtApplication extends Construct {
             layers: [
                 new lambdapython.PythonLayerVersion(this, 'opencv_lambda_layer', {
                     entry: path.join(sample_libs_root, 'opencv_utils'),
-                    compatibleRuntimes: [lambda.Runtime.PYTHON_3_10],
+                    compatibleRuntimes: [lambda.Runtime.PYTHON_3_13],
                 }),
             ],
             handler: "handler",
             index: 'data_resource_handler.py',
             memorySize: 256,
             role: iottwinmakerDataCustomResourceLifecycleExecutionRole,
-            runtime: lambda.Runtime.PYTHON_3_10,
+            runtime: lambda.Runtime.PYTHON_3_13,
             timeout: cdk.Duration.minutes(15),
             logRetention: logs.RetentionDays.ONE_DAY,
         });
@@ -493,7 +493,7 @@ export class CookieFactoryV2Stack extends cdk.Stack {
         // lambda layer for helper utilities for implementing UDQ Lambdas
         const udqHelperLayer = new lambdapython.PythonLayerVersion(this, 'udq_utils_layer', {
             entry: path.join(sample_libs_root, "udq_helper_utils"),
-            compatibleRuntimes: [lambda.Runtime.PYTHON_3_10]
+            compatibleRuntimes: [lambda.Runtime.PYTHON_3_13]
         });
 
         //region - sample infrastructure content for telemetry data in Timestream
@@ -527,7 +527,7 @@ export class CookieFactoryV2Stack extends cdk.Stack {
             index: 'udq_data_reader.py',
             memorySize: 256,
             role: timestreamUdqRole,
-            runtime: lambda.Runtime.PYTHON_3_10,
+            runtime: lambda.Runtime.PYTHON_3_13,
             timeout: cdk.Duration.minutes(15),
             logRetention: logs.RetentionDays.ONE_DAY,
             environment: {
@@ -540,7 +540,7 @@ export class CookieFactoryV2Stack extends cdk.Stack {
         //region - sample infrastructure content for synthetic cookieline telemetry data
         // https://aws-sdk-pandas.readthedocs.io/en/stable/layers.html
         const pandasLayer = lambda.LayerVersion.fromLayerVersionArn(this,
-          'awsPandasLayer', `arn:aws:lambda:${this.region}:336392948345:layer:AWSSDKPandas-Python310:11`)
+          'awsPandasLayer', `arn:aws:lambda:${this.region}:336392948345:layer:AWSSDKPandas-Python313:1`)
 
         // synthetic data lambda
         const syntheticDataUDQ = new lambdapython.PythonFunction(this, 'syntheticDataUDQ', {
@@ -555,7 +555,7 @@ export class CookieFactoryV2Stack extends cdk.Stack {
             index: 'synthetic_udq_reader.py',
             memorySize: 256,
             role: timestreamUdqRole,
-            runtime: lambda.Runtime.PYTHON_3_10,
+            runtime: lambda.Runtime.PYTHON_3_13,
             timeout: cdk.Duration.minutes(15),
             logRetention: logs.RetentionDays.ONE_DAY,
             environment: {
