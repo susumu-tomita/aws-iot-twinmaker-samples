@@ -24,7 +24,9 @@ If you run into any issues, please see the Troubleshooting section of this page.
 
 ## Prerequisites
 
-Note: These instructions have primarily been tested for Mac/Linux/WSL environments. For a standardized development environment, consider following our [Cloud9 setup guide](./CLOUD9_SETUP.md) instead.
+Note: These instructions have primarily been tested for Mac/Linux/WSL environments. For a standardized development environment, you can use:
+- **[Development Container](./.devcontainer/README.md)** (Recommended) - VS Code Dev Containers with all dependencies pre-configured
+- **[Cloud9 setup guide](./CLOUD9_SETUP.md)** - AWS Cloud9 environment
 
 1. This sample depends on AWS services that might not yet be available in all regions. Please run this sample in one of the following regions:
    - US East (N. Virginia) (us-east-1)
