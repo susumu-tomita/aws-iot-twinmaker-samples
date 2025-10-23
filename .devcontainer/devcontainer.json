@@ -67,7 +67,7 @@
   "remoteUser": "vscode",
 
   "mounts": [
-    "source=${env:HOME}/.aws,target=/home/vscode/.aws,type=bind",
+    "source=${localEnv:HOME}/.aws,target=/home/vscode/.aws,type=bind",
     "source=aws-iot-twinmaker-bashhistory-${devcontainerId},target=/commandhistory,type=volume",
     "source=aws-iot-twinmaker-claude-config-${devcontainerId},target=/home/vscode/.claude,type=volume"
   ],
@@ -79,11 +79,7 @@
     "AWS_DEFAULT_REGION": "us-east-1"
   },
 
-  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=delegated",
-  "workspaceFolder": "/workspace",
-
-  // Temporarily disabled to test container startup
-  // "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
 
   "forwardPorts": [3000]
 }
