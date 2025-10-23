@@ -3,30 +3,42 @@ FROM python:3.11-slim
 ARG TZ
 ENV TZ="${TZ:-America/Los_Angeles}"
 
-# Install Node.js 20
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get install -y nodejs
-
-# Install basic development tools
+# Install basic development tools first (including curl)
 RUN apt-get update && apt-get install -y \
     less \
     git \
     procps \
     sudo \
-    fzf \
     zsh \
     man-db \
     unzip \
     gnupg2 \
-    gh \
     jq \
     curl \
     wget \
     vim \
     ca-certificates \
     apt-transport-https \
-    software-properties-common \
+    build-essential \
     && rm -rf /var/lib/apt/lists/*
+
+# Install GitHub CLI
+RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+    && chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+    && apt-get update \
+    && apt-get install gh -y \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install fzf
+RUN git clone --depth 1 https://github.com/junegunn/fzf.git /usr/local/share/fzf \
+    && /usr/local/share/fzf/install --all --no-update-rc \
+    && ln -s /usr/local/share/fzf/bin/fzf /usr/local/bin/fzf
+
+# Install Node.js 20
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs && \
+    rm -rf /var/lib/apt/lists/*
 
 # Install Docker CLI
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && \
@@ -81,8 +93,8 @@ RUN sh -c "$(wget -O- https://github.com/deluan/zsh-in-docker/releases/download/
     -p aws \
     -p docker \
     -p kubectl \
-    -a "source /usr/share/doc/fzf/examples/key-bindings.zsh" \
-    -a "source /usr/share/doc/fzf/examples/completion.zsh" \
+    -a "[ -f /usr/local/share/fzf/shell/key-bindings.zsh ] && source /usr/local/share/fzf/shell/key-bindings.zsh" \
+    -a "[ -f /usr/local/share/fzf/shell/completion.zsh ] && source /usr/local/share/fzf/shell/completion.zsh" \
     -a "export HISTFILE=/commandhistory/.zsh_history" \
     -x
 
@@ -102,13 +114,16 @@ RUN npm install -g @anthropic-ai/claude-code
 # Install OpenAI Codex CLI
 RUN npm install -g @openai/codex
 
-# Install Python development tools and Amazon Q CLI
+# Install Python development tools
 RUN pip3 install --user --no-cache-dir \
     black \
     pylint \
     pytest \
     boto3 \
-    awscli-local \
-    amazon-q-developer-cli
+    awscli-local
+
+# Note: Amazon Q CLI installation instructions:
+# Amazon Q is typically installed via IDE extensions (VS Code, JetBrains) or AWS Toolkit
+# For CLI usage, refer to: https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/command-line.html
 
 CMD ["/bin/zsh"]

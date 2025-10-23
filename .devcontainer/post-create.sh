@@ -36,7 +36,7 @@ echo ""
 echo "Development CLIs:"
 command -v claude-code &> /dev/null && echo "✅ Claude Code CLI installed" || echo "⚠️  Claude Code CLI not found"
 command -v codex &> /dev/null && echo "✅ Codex CLI installed" || echo "⚠️  Codex CLI not found"
-command -v q &> /dev/null && echo "✅ Amazon Q CLI installed" || echo "⚠️  Amazon Q CLI not found"
+echo "ℹ️  Amazon Q: Available via VS Code extension (amazonwebservices.amazon-q-vscode)"
 
 # Install Python dependencies for CookieFactory workspace
 echo "📦 Installing Python dependencies..."
